@@ -1,21 +1,20 @@
-
 class ContaBancaria:
 
     def __init__(self, numero, titular, saldo, limite):
         print("Construindo o objeto... {}".format(self))
         self.numero = numero
-        self.__titular = titular
-        self.__saldo = saldo
-        self.__limite = limite
+        self._titular = titular
+        self.saldo = saldo
+        self._limite = limite
 
     def extrato (self):
-        print("Titular: {}\nSaldo: R$ {:.2f}".format(self.titular, float(self.__saldo)))
+        print("Titular: {}\nSaldo: R$ {:.2f}".format(self.titular, float(self.saldo)))
 
     def deposito(self, valor):
-        self.__saldo = self.__saldo + valor
+        self.saldo = self.saldo + valor
 
     def saque(self, valor):
-        self.__saldo = self.__saldo - valor
+        self.saldo = self.saldo - valor
 
     def transferencia(self, valor, destino):
         self.saque(valor)
@@ -24,12 +23,16 @@ class ContaBancaria:
 
     @property
     def titular(self):
-        return self.__titular
+        return self._titular
 
     @property
     def limite(self):
-        return float(self.__limite)
+        return float(self._limite)
 
     @limite.setter
-    def limite(self, limite):
-        self.__limite = limite
+    def limite(self, valor):
+        self._limite = valor
+
+    @titular.setter
+    def titular(self, valor):
+        self._titular = valor

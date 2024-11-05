@@ -1,21 +1,36 @@
-# import class
-from Pen import Pen
-from Book import Book
-from conta import Conta
-from datas import Data
+from contas.conta_bancaria import ContaBancaria
+from contas.conta_poupanca import ContaPoupanca
+from contas.conta_corrente import ContaCorrente
 
-# creating instance of Pen object (object state)
-caneta: Pen = Pen('Vermelha', 'Bic', 100, capped=True)
+def main():
+    # instanciando uma conta bancária comum
+    conta1 = ContaBancaria(numero="123", titular="Alice", saldo=1000, limite=500)
+    print("\n--- Conta Bancária ---")
+    conta1.extrato()
+    conta1.deposito(200)
+    conta1.extrato()
+    conta1.saque(150)
+    conta1.extrato()
 
-livro = Book('Felicidade Clandestina', 'Clarice Lispector', 1990, closed=True)
+    # instanciando uma conta poupança com rendimento mensal
+    conta_poupanca = ContaPoupanca(numero="456", titular="Bob", saldo=1500, limite=300, taxa_rendimento=0.02)
+    print("\n--- Conta Poupança ---")
+    conta_poupanca.extrato()
+    conta_poupanca.aplicar_rendimento()  # Aplica o rendimento de 2%
+    conta_poupanca.extrato()
 
-d = Data(29, 10, 2024)
-print(d.formatada())
+    # instanciando uma conta corrente com taxa de manutenção
+    conta_corrente = ContaCorrente(numero="789", titular="Agustinho", saldo=500, limite=200, taxa_manutencao=20)
+    print("\n--- Conta Corrente ---")
+    conta_corrente.extrato()
+    conta_corrente.descontar_taxa()  # desconta a taxa de manutenção
+    conta_corrente.extrato()
 
-#conta_b = Conta(2569, "Babs", 500, 1000)
+    # teste transferência entre contas
+    print("\n--- Transferência ---")
+    conta1.transferencia(100, conta_corrente)
+    conta1.extrato()
+    conta_corrente.extrato()
 
-# conta_b.extrato()
-# conta_b.deposito(100)
-# conta_b.extrato()
-# conta_b.saque(100)
-# conta_b.extrato()
+if __name__ == "__main__":
+    main()
